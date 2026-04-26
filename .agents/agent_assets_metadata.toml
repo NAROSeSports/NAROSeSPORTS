@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "ncvtM3AZjqnpUeMw69jPf"
+uri = "file://artifacts/naros-esports/src/assets/hero-bg.png"
+type = "image"
+title = "Dark tactical esports hero background"
+
+[[generated]]
+id = "Ntsa9vMX1XaUBvJ8ollDT"
+uri = "file://artifacts/naros-esports/src/assets/r6-art.png"
+type = "image"
+title = "Tactical military breach concept art"
