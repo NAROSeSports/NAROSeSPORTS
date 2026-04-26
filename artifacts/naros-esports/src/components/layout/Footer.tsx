@@ -1,4 +1,5 @@
 import { SiTwitch, SiX, SiYoutube, SiDiscord } from "react-icons/si";
+import { Mail } from "lucide-react";
 import logoImg from "@assets/Profile_Pic_1777204633419.png";
 
 export function Footer() {
@@ -19,9 +20,17 @@ export function Footer() {
                 NAROS <span className="text-primary font-normal">eSports</span>
               </span>
             </div>
-            <p className="text-muted-foreground font-mono text-sm max-w-md leading-relaxed">
+            <p className="text-muted-foreground font-mono text-sm max-w-md leading-relaxed mb-4">
               EST. JAN 2026. A NEW FORCE IN RAINBOW SIX SIEGE. FOUNDED BY ZENTIONX & FIGGLEBOTTOM. WE ARE NAROS.
             </p>
+            <a
+              href="mailto:info@narosesports.com"
+              className="inline-flex items-center gap-2 font-mono text-sm text-muted-foreground hover:text-primary transition-colors group"
+              data-testid="link-contact-email"
+            >
+              <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              info@narosesports.com
+            </a>
           </div>
 
           <div>
@@ -38,6 +47,9 @@ export function Footer() {
               </a>
               <a href="https://discord.gg/V9cUa39dVd" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-3 group">
                 <SiDiscord className="w-4 h-4 group-hover:scale-110 transition-transform" /> Discord Server
+              </a>
+              <a href="mailto:info@narosesports.com" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-3 group">
+                <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" /> info@narosesports.com
               </a>
             </div>
           </div>
