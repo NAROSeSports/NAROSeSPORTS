@@ -27,8 +27,8 @@ export function Footer() {
           <div>
             <h4 className="font-display text-lg tracking-widest uppercase mb-6 text-foreground border-l-2 border-primary pl-3">Comms</h4>
             <div className="flex flex-col gap-4 font-mono text-sm">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-3 group">
-                <SiX className="w-4 h-4 group-hover:scale-110 transition-transform" /> @NarosEsports
+              <a href="https://x.com/NAROSeSports" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-3 group">
+                <SiX className="w-4 h-4 group-hover:scale-110 transition-transform" /> @NAROSeSports
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-3 group">
                 <SiTwitch className="w-4 h-4 group-hover:scale-110 transition-transform" /> NarosGG
@@ -36,7 +36,7 @@ export function Footer() {
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-3 group">
                 <SiYoutube className="w-4 h-4 group-hover:scale-110 transition-transform" /> Naros
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-3 group">
+              <a href="https://discord.gg/V9cUa39dVd" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-3 group">
                 <SiDiscord className="w-4 h-4 group-hover:scale-110 transition-transform" /> Discord Server
               </a>
             </div>

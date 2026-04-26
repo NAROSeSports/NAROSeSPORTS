@@ -36,7 +36,9 @@ export function Join() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <a
-                href="#"
+                href="https://discord.gg/V9cUa39dVd"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-5 bg-primary text-primary-foreground font-display font-bold text-lg tracking-widest uppercase hover:bg-purple-400 transition-colors duration-300 flex items-center justify-center gap-3 group shadow-[0_0_30px_rgba(168,85,247,0.3)] hover:shadow-[0_0_40px_rgba(168,85,247,0.5)]"
                 data-testid="btn-join-discord"
               >
@@ -44,12 +46,14 @@ export function Join() {
                 Join Discord
               </a>
               <a
-                href="#"
+                href="https://x.com/NAROSeSports"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-5 border-2 border-border bg-background text-foreground font-display font-bold text-lg tracking-widest uppercase hover:border-primary hover:text-primary transition-all duration-300 flex items-center justify-center gap-3 group"
                 data-testid="btn-follow-x"
               >
                 <SiX className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                Follow Comms
+                Follow on X
               </a>
             </div>
           </motion.div>
