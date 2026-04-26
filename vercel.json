@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pnpm --filter @workspace/naros-esports run build",
+  "outputDirectory": "artifacts/naros-esports/dist/public",
+  "installCommand": "pnpm install",
+  "framework": null
+}
