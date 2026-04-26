@@ -72,11 +72,11 @@ export function Hero() {
             View Roster
           </a>
           <a
-            href="#about"
+            href="#join"
             className="px-8 py-4 border border-border bg-background/50 backdrop-blur text-foreground font-display font-bold text-lg tracking-widest uppercase hover:border-primary transition-all duration-300"
-            data-testid="hero-cta-about"
+            data-testid="hero-cta-join"
           >
-            Mission Brief
+            Join Us
           </a>
         </motion.div>
       </div>

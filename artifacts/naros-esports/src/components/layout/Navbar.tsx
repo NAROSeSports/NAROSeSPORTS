@@ -15,10 +15,9 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Mssn_Brief", href: "#about" },
-    { name: "Op_Roster", href: "#roster" },
-    { name: "Intel", href: "#game" },
-    { name: "Enlist", href: "#join" },
+    { name: "Roster", href: "#roster" },
+    { name: "Game", href: "#game" },
+    { name: "Join", href: "#join" },
   ];
 
   return (

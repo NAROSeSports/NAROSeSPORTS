@@ -29,7 +29,7 @@ export function Roster() {
             className="flex items-center gap-4 mb-4"
           >
             <div className="h-[1px] w-8 bg-primary" />
-            <h2 className="font-mono text-sm text-primary tracking-widest uppercase">Op Roster</h2>
+            <h2 className="font-mono text-sm text-primary tracking-widest uppercase">Roster</h2>
             <div className="h-[1px] w-8 bg-primary" />
           </motion.div>
           
@@ -40,7 +40,7 @@ export function Roster() {
             transition={{ delay: 0.1 }}
             className="font-display font-bold text-4xl md:text-5xl tracking-tight uppercase text-foreground mb-4"
           >
-            The Vanguard
+            The Team
           </motion.h3>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -49,7 +49,7 @@ export function Roster() {
             transition={{ delay: 0.2 }}
             className="font-mono text-muted-foreground max-w-2xl"
           >
-            THE ARCHITECTS OF NAROS. READY TO BREACH.
+            THE FOUNDERS OF NAROS ESPORTS.
           </motion.p>
         </div>
 

@@ -1,5 +1,4 @@
 import { Hero } from "@/components/sections/Hero";
-import { About } from "@/components/sections/About";
 import { Roster } from "@/components/sections/Roster";
 import { Game } from "@/components/sections/Game";
 import { Join } from "@/components/sections/Join";
@@ -16,7 +15,6 @@ export default function Home() {
       
       <main>
         <Hero />
-        <About />
         <Roster />
         <Game />
         <Join />

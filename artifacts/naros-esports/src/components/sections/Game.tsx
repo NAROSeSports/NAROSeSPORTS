@@ -58,7 +58,7 @@ export function Game() {
             transition={{ duration: 0.8 }}
             className="order-1 lg:order-2"
           >
-            <h2 className="font-mono text-sm text-primary tracking-widest uppercase mb-4">Area of Operations</h2>
+            <h2 className="font-mono text-sm text-primary tracking-widest uppercase mb-4">Our Game</h2>
             <h3 className="font-display font-bold text-5xl md:text-6xl tracking-tight uppercase text-foreground mb-8">
               Rainbow Six <br className="hidden md:block" />
               <span className="text-muted-foreground text-4xl md:text-5xl">Siege</span>

@@ -43,12 +43,11 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-display text-lg tracking-widest uppercase mb-6 text-foreground border-l-2 border-primary pl-3">Intel</h4>
+            <h4 className="font-display text-lg tracking-widest uppercase mb-6 text-foreground border-l-2 border-primary pl-3">Links</h4>
             <div className="flex flex-col gap-4 font-mono text-sm">
-              <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors">Mission Brief</a>
-              <a href="#roster" className="text-muted-foreground hover:text-foreground transition-colors">Op Roster</a>
-              <a href="#game" className="text-muted-foreground hover:text-foreground transition-colors">Game Intel</a>
-              <a href="#join" className="text-muted-foreground hover:text-foreground transition-colors">Enlistment</a>
+              <a href="#roster" className="text-muted-foreground hover:text-foreground transition-colors">Roster</a>
+              <a href="#game" className="text-muted-foreground hover:text-foreground transition-colors">Game</a>
+              <a href="#join" className="text-muted-foreground hover:text-foreground transition-colors">Join</a>
             </div>
           </div>
         </div>
