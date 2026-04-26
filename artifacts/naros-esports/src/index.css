@@ -68,7 +68,7 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Base Theme - Tactical Dark by Default */
+/* Base Theme - NAROS Purple Dark */
 :root {
   --button-outline: rgba(255,255,255, .10);
   --badge-outline: rgba(255,255,255, .05);
@@ -78,73 +78,71 @@
   --elevate-1: rgba(255,255,255, .04);
   --elevate-2: rgba(255,255,255, .09);
 
-  /* Deep tactical black */
-  --background: 0 0% 4%;
-  /* Crisp white for text */
-  --foreground: 0 0% 98%;
+  /* Deep dark navy with purple tint */
+  --background: 258 30% 5%;
+  --foreground: 260 10% 96%;
 
-  /* Dark grey borders */
-  --border: 0 0% 12%;
+  /* Purple-tinted borders */
+  --border: 270 25% 16%;
 
-  /* Slightly lighter than background */
-  --card: 0 0% 6%;
-  --card-foreground: 0 0% 98%;
-  --card-border: 0 0% 12%;
+  /* Slightly lighter card surface */
+  --card: 258 28% 8%;
+  --card-foreground: 260 10% 96%;
+  --card-border: 270 25% 16%;
 
-  --sidebar: 0 0% 4%;
-  --sidebar-foreground: 0 0% 98%;
-  --sidebar-border: 0 0% 12%;
-  --sidebar-primary: 110 100% 54%;
-  --sidebar-primary-foreground: 0 0% 4%;
-  --sidebar-accent: 0 0% 10%;
-  --sidebar-accent-foreground: 0 0% 98%;
-  --sidebar-ring: 110 100% 54%;
+  --sidebar: 258 30% 5%;
+  --sidebar-foreground: 260 10% 96%;
+  --sidebar-border: 270 25% 16%;
+  --sidebar-primary: 272 80% 62%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 258 28% 10%;
+  --sidebar-accent-foreground: 260 10% 96%;
+  --sidebar-ring: 272 80% 62%;
 
-  --popover: 0 0% 6%;
-  --popover-foreground: 0 0% 98%;
-  --popover-border: 0 0% 12%;
+  --popover: 258 28% 8%;
+  --popover-foreground: 260 10% 96%;
+  --popover-border: 270 25% 16%;
 
-  /* Night Vision Green */
-  --primary: 110 100% 54%;
-  --primary-foreground: 0 0% 4%;
+  /* Electric purple — the NAROS accent */
+  --primary: 272 80% 62%;
+  --primary-foreground: 0 0% 100%;
 
-  /* Steel Blue/Grey */
-  --secondary: 210 20% 20%;
-  --secondary-foreground: 0 0% 98%;
+  --secondary: 258 25% 15%;
+  --secondary-foreground: 260 10% 96%;
 
-  --muted: 0 0% 12%;
-  --muted-foreground: 0 0% 65%;
+  --muted: 258 25% 12%;
+  --muted-foreground: 260 10% 60%;
 
-  --accent: 110 100% 54%;
-  --accent-foreground: 0 0% 4%;
+  --accent: 272 80% 62%;
+  --accent-foreground: 0 0% 100%;
 
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
 
-  --input: 0 0% 15%;
-  --ring: 110 100% 54%;
-  
-  --chart-1: 110 100% 54%;
-  --chart-2: 210 20% 40%;
-  --chart-3: 0 0% 30%;
-  --chart-4: 0 0% 50%;
-  --chart-5: 0 0% 70%;
+  --input: 258 25% 15%;
+  --ring: 272 80% 62%;
+
+  --chart-1: 272 80% 62%;
+  --chart-2: 288 60% 50%;
+  --chart-3: 258 50% 40%;
+  --chart-4: 260 30% 55%;
+  --chart-5: 275 40% 70%;
 
   --app-font-sans: 'Inter', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: Menlo, monospace;
   --app-font-display: 'Orbitron', sans-serif;
-  
-  --radius: 0rem; /* Hard edges */
-  
-  --shadow-2xs: 0px 2px 0px 0px rgba(0,0,0,0.5);
-  --shadow-xs: 0px 2px 0px 0px rgba(0,0,0,0.5);
-  --shadow-sm: 0px 2px 0px 0px rgba(0,0,0,0.5), 0px 1px 2px -1px rgba(0,0,0,0.5);
-  --shadow: 0px 2px 0px 0px rgba(0,0,0,0.5), 0px 1px 2px -1px rgba(0,0,0,0.5);
-  --shadow-md: 0px 2px 0px 0px rgba(0,0,0,0.5), 0px 2px 4px -1px rgba(0,0,0,0.5);
-  --shadow-lg: 0px 2px 0px 0px rgba(0,0,0,0.5), 0px 4px 6px -1px rgba(0,0,0,0.5);
-  --shadow-xl: 0px 2px 0px 0px rgba(0,0,0,0.5), 0px 8px 10px -1px rgba(0,0,0,0.5);
-  --shadow-2xl: 0px 2px 0px 0px rgba(0,0,0,0.5);
+
+  --radius: 0rem;
+
+  --shadow-2xs: 0px 2px 0px 0px rgba(0,0,0,0.6);
+  --shadow-xs: 0px 2px 0px 0px rgba(0,0,0,0.6);
+  --shadow-sm: 0px 2px 0px 0px rgba(0,0,0,0.6), 0px 1px 2px -1px rgba(0,0,0,0.6);
+  --shadow: 0px 2px 0px 0px rgba(0,0,0,0.6), 0px 1px 2px -1px rgba(0,0,0,0.6);
+  --shadow-md: 0px 2px 0px 0px rgba(0,0,0,0.6), 0px 2px 4px -1px rgba(0,0,0,0.6);
+  --shadow-lg: 0px 2px 0px 0px rgba(0,0,0,0.6), 0px 4px 6px -1px rgba(0,0,0,0.6);
+  --shadow-xl: 0px 2px 0px 0px rgba(0,0,0,0.6), 0px 8px 10px -1px rgba(0,0,0,0.6);
+  --shadow-2xl: 0px 2px 0px 0px rgba(0,0,0,0.6);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
 
@@ -158,7 +156,7 @@
 }
 
 .dark {
-  /* Handled by root, we want dark mode always */
+  /* Always dark — NAROS is a dark brand */
 }
 
 @layer base {
@@ -169,7 +167,7 @@
   body {
     @apply font-sans antialiased bg-background text-foreground selection:bg-primary selection:text-primary-foreground;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-display tracking-tight uppercase;
   }
@@ -257,7 +255,7 @@
 
 .glitch-text::before {
   left: 2px;
-  text-shadow: -1px 0 red;
+  text-shadow: -1px 0 rgba(220, 100, 255, 0.8);
   clip: rect(24px, 550px, 90px, 0);
   animation: glitch-anim-2 3s infinite linear alternate-reverse;
 }
@@ -293,9 +291,9 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.08) 50%);
   background-size: 100% 4px;
   z-index: 50;
   pointer-events: none;
-  opacity: 0.15;
+  opacity: 0.3;
 }

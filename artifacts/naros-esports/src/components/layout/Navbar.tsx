@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { Menu, X, Crosshair } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logoImg from "@assets/Profile_Pic_1777204633419.png";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -25,20 +26,21 @@ export function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
-        scrolled 
-          ? "bg-background/90 backdrop-blur-md border-primary/20 py-4 shadow-[0_4px_30px_rgba(0,0,0,0.5)]" 
-          : "bg-transparent border-transparent py-6"
+        scrolled
+          ? "bg-background/90 backdrop-blur-md border-primary/20 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.6)]"
+          : "bg-transparent border-transparent py-5"
       }`}
       data-testid="navbar"
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative flex items-center justify-center w-10 h-10 border border-primary/50 bg-background/50 group-hover:border-primary transition-colors">
-            <Crosshair className="text-primary w-6 h-6 group-hover:scale-110 transition-transform" />
-            <div className="absolute inset-0 bg-primary/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
-          </div>
-          <span className="font-display font-bold text-2xl tracking-tighter text-foreground group-hover:text-primary transition-colors uppercase">
-            NAROS
+          <img
+            src={logoImg}
+            alt="NAROS Esports Logo"
+            className="w-10 h-10 object-cover rounded-full border border-primary/40 group-hover:border-primary transition-colors shadow-[0_0_12px_rgba(168,85,247,0.25)] group-hover:shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+          />
+          <span className="font-display font-bold text-xl tracking-tighter text-foreground group-hover:text-primary transition-colors uppercase">
+            NAROS <span className="text-primary font-normal">eSports</span>
           </span>
         </Link>
 
@@ -57,7 +59,7 @@ export function Navbar() {
           ))}
           <a
             href="#join"
-            className="px-6 py-2 border border-primary text-primary font-mono text-sm tracking-widest uppercase hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0)] hover:shadow-[0_0_15px_rgba(110,255,0,0.3)]"
+            className="px-6 py-2 border border-primary text-primary font-mono text-sm tracking-widest uppercase hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-[0_0_12px_rgba(168,85,247,0.1)] hover:shadow-[0_0_20px_rgba(168,85,247,0.35)]"
             data-testid="nav-cta-join"
           >
             Deploy
