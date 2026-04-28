@@ -5,6 +5,7 @@ import { Join } from "@/components/sections/Join";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
 
       <Footer />
       <ScrollToTop />
+      <SpeedInsights />
     </div>
   );
 }
