@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f6f1e9;
+  --color-card: #fffdf9;
+  --color-sunken: #efe8dd;
+  --color-ink: #1f1b18;
+  --color-muted: #6c6359;
+  --color-line: #e3d9cb;
+  --color-accent: #c2402a;
+  --color-accent-strong: #a63520;
+  --color-accent-ink: #ffffff;
+  --color-accent-soft: #f9e3dc;
+  --color-sakura: #d1497a;
+  --color-sakura-soft: #fbe5ed;
+  --color-matcha: #46714a;
+  --color-matcha-soft: #e2eedf;
+  --color-ai: #2f4c80;
+  --color-ai-soft: #e2e8f4;
+
+  --font-sans: ui-sans-serif, system-ui, "Google Sans", Roboto, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+
+  --animate-sheet-up: sheet-up 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-fade-in: fade-in 0.18s ease-out;
+  --animate-toast-in: toast-in 0.2s ease-out;
+
+  @keyframes sheet-up {
+    from { transform: translateY(24px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes toast-in {
+    from { transform: translateY(12px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #151210;
+    --color-card: #1f1b18;
+    --color-sunken: #0f0d0b;
+    --color-ink: #f1ebe3;
+    --color-muted: #a99e92;
+    --color-line: #3a332d;
+    --color-accent: #e5674c;
+    --color-accent-strong: #f07c62;
+    --color-accent-ink: #1a0d09;
+    --color-accent-soft: #3b211a;
+    --color-sakura: #f07fa5;
+    --color-sakura-soft: #3d2029;
+    --color-matcha: #8cc08d;
+    --color-matcha-soft: #1f2d20;
+    --color-ai: #9db5e3;
+    --color-ai-soft: #1f2738;
+    color-scheme: dark;
+  }
+}
+
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+/* Hide scrollbars on horizontal chip rows while keeping them scrollable. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Text areas grow with their content (in the base layer so utilities like min-h-20 still win). */
+@layer base {
+  textarea {
+    field-sizing: content;
+    min-height: 2.75rem;
+  }
+}
+
+input[type="date"],
+input[type="time"] {
+  min-height: 2.5rem;
+}
+
+/* Inputs show focus with their border; give everything else a clear ring. */
+:where(button, a, select, [role="tab"]):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+:where(input, textarea):focus-visible {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

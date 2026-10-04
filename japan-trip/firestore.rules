@@ -1,0 +1,54 @@
+rules_version = '2';
+
+// Security rules for the Japan Trip planner.
+// Paste this into Firebase console -> Firestore Database -> Rules -> Publish.
+//
+// A trip can only be read or changed by the Google accounts listed in its
+// `members` field. Members invite others from Settings -> People.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null && request.auth.token.email is string;
+    }
+
+    function myEmail() {
+      return request.auth.token.email.lower();
+    }
+
+    // OPTIONAL extra lock: only these Google accounts may start a new trip.
+    // To use it, put your two emails in the list and change `true` to
+    // `myEmail() in ['you@gmail.com', 'them@gmail.com']`.
+    function canCreateTrips() {
+      return true;
+    }
+
+    function isMember(tripId) {
+      return signedIn()
+        && myEmail() in get(/databases/$(database)/documents/trips/$(tripId)).data.members;
+    }
+
+    match /trips/{tripId} {
+      allow read: if signedIn() && myEmail() in resource.data.members;
+
+      // You can create a trip with only yourself in it.
+      allow create: if signedIn() && canCreateTrips()
+        && request.resource.data.members == [myEmail()];
+
+      // Members can edit the trip and invite/remove people, but can't remove
+      // themselves (so nobody locks the last person out by accident).
+      allow update: if signedIn()
+        && myEmail() in resource.data.members
+        && myEmail() in request.resource.data.members
+        && request.resource.data.members.size() <= 10;
+
+      allow delete: if signedIn() && myEmail() in resource.data.members;
+
+      // Ideas/plan items and to-do lists.
+      match /{collection}/{docId} {
+        allow read, write: if collection in ['items', 'todos'] && isMember(tripId);
+      }
+    }
+  }
+}
