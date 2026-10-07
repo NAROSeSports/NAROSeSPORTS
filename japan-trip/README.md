@@ -12,15 +12,20 @@ A shared trip-planning app for two. Save things you find on TikTok, YouTube, Ins
 
 ---
 
-## 1. Put it online (Vercel, free, ~5 minutes)
+## 1. Put it online (Cloudflare, free, ~5 minutes)
 
-The app lives in the `japan-trip/` folder of this repo.
+The app lives in the `japan-trip/` folder of this repo and runs on Cloudflare Workers (free plan, no card needed). Every push to GitHub redeploys it automatically.
 
-1. Go to [vercel.com](https://vercel.com), sign in with GitHub, then click **Add New… → Project** and import this repository.
-2. Under **Root Directory**, click **Edit** and choose **`japan-trip`**. Leave everything else as it is (Vercel reads `japan-trip/vercel.json`).
-3. Click **Deploy**. You'll get an address like `https://japan-trip-yourname.vercel.app`.
+1. Sign up at [dash.cloudflare.com](https://dash.cloudflare.com) (free).
+2. Go to **Workers & Pages → Create application → Import a repository**, connect GitHub, and pick this repository.
+3. Fill in the settings:
+   - **Project / Worker name:** `japan-trip`. This must match `name` in `wrangler.jsonc`.
+   - **Root directory** (may be under *Advanced settings* and called *Path*): `japan-trip`
+   - **Build command:** `npm run build`
+   - **Deploy command:** `npx wrangler deploy` (the default)
+4. Click **Deploy**. Your app's address will look like `https://japan-trip.<your-name>.workers.dev`.
 
-> Vercel publishes the repo's main branch as the live site. If this code is still on another branch, merge it into `main` first, or use the preview URL that Vercel shows for that branch.
+> Cloudflare publishes the repo's **main** branch as the live site. If this code is still on another branch, merge it into `main` first.
 
 At this point the app works, but **everything is saved only on the device you're using**. To share one trip between both of your phones and your computer, do step 2.
 
@@ -30,13 +35,13 @@ Firebase handles Google sign-in and the shared database. The free "Spark" plan i
 
 1. **Create a project.** Go to [console.firebase.google.com](https://console.firebase.google.com) and click **Create a project**. Call it `japan-trip`. You can turn Google Analytics off.
 2. **Turn on Google sign-in.** Go to **Build → Authentication → Get started → Sign-in method → Google**, switch it on, pick your email as the support email, and save.
-3. **Allow your app's address.** Still in Authentication, open **Settings → Authorized domains → Add domain** and add your Vercel domain, e.g. `japan-trip-yourname.vercel.app` (no `https://`).
+3. **Allow your app's address.** Still in Authentication, open **Settings → Authorized domains → Add domain** and add your app's domain, e.g. `japan-trip.yourname.workers.dev` (no `https://`).
 4. **Create the database.** Go to **Build → Firestore Database → Create database**. Choose the *Standard* edition if asked, pick the location closest to you, and start in **production mode**.
 5. **Add the security rules.** In Firestore open the **Rules** tab, replace everything with the contents of [`firestore.rules`](./firestore.rules), and click **Publish**. These rules mean only people you invite can see your trip.
 6. **Get the web config.** Open ⚙️ **Project settings → General → Your apps** and click the **`</>`** (Web) icon. Register an app called "Japan Trip" (you don't need Firebase Hosting). Copy the `firebaseConfig = { … }` block it shows you.
 7. **Give the config to the app**, using either option:
-   - **Vercel (easiest):** in your Vercel project, open **Settings → Environment Variables** and add `VITE_FIREBASE_CONFIG`. Paste the whole `{ apiKey: "…", … }` block as the value and save. Then go to **Deployments → ⋯ → Redeploy**.
-   - **Or in code:** paste the object into `src/config.ts` (replace `null`), then commit and push.
+   - **Easiest:** paste it into the chat with Claude and ask for it to be added. Or paste the object into `src/config.ts` yourself (replace `null`), then commit and push. Cloudflare redeploys automatically.
+   - **Or in Cloudflare:** open your Worker's **Settings → Build → Variables and secrets**, add a *build* variable `VITE_FIREBASE_CONFIG`, paste the whole `{ apiKey: "…", … }` block as the value, then trigger a new deploy (for example by pushing any change).
 
    This config is **not** a secret. It's meant to be public, and the rules from step 5 are what protect your data.
 8. Open the app. It now asks you to **Sign in with Google**. Tap **Start our trip**. Anything you'd already saved on that device can be brought along.
@@ -70,7 +75,7 @@ Tip: in Android's share sheet you can long-press **Japan Trip** and choose **Pin
 ## How it works
 
 - `src/`: the app (React + TypeScript + Tailwind). It uses hash-based pages, so it works on any static host.
-- `api/preview.ts`: a small Vercel Function that reads link titles and thumbnails. It resolves TikTok and Google Maps short links and reads YouTube/TikTok oEmbed and Open Graph tags. Browsers can't read those sites directly, so this runs on the server. Thumbnails are shrunk to about 15 KB and stored with each idea, so they still show offline and don't break when TikTok's image links expire.
+- `worker/`: a small Cloudflare Worker. It serves the app and answers `/api/preview`, which reads link titles and thumbnails. It resolves TikTok and Google Maps short links and reads YouTube/TikTok oEmbed and Open Graph tags. Browsers can't read those sites directly, so this runs on the server. Thumbnails are shrunk to about 15 KB and stored with each idea, so they still show offline and don't break when TikTok's image links expire.
 - `public/manifest.webmanifest`: makes the app installable and registers it in Android's share sheet (`share_target`).
 - `public/sw.js`: the service worker that caches the app so it opens offline.
 - `src/data/local.ts`: the "this device only" mode, stored in IndexedDB.
@@ -85,6 +90,8 @@ npm install
 npm run dev        # http://localhost:5173 (link previews work locally too)
 npm test           # unit tests
 npm run build      # type-check + production build into dist/
+npm run preview    # build, then run it in Cloudflare's local Worker runtime
+npm run deploy     # deploy by hand from your computer (asks you to log in to Cloudflare)
 ```
 
 To test syncing locally without a real Firebase project, run the Firebase emulators (`npx firebase-tools emulators:start --only auth,firestore --project demo-japan-trip` from this folder) and start the app with:
@@ -98,5 +105,6 @@ VITE_FIREBASE_EMULATORS=1 VITE_FIREBASE_CONFIG='{"apiKey":"demo","authDomain":"d
 - **"Japan Trip" isn't in the share sheet**: the app has to be *installed* from Chrome (⋮ → Add to Home screen → **Install**), not added as a bookmark shortcut. After installing, it can take a minute to appear.
 - **Sign-in popup does nothing inside the installed app**: sign in once in normal Chrome at the same address. The installed app shares Chrome's sign-in, so it'll be signed in too.
 - **"Missing or insufficient permissions"**: the Firestore rules from step 2.5 haven't been published yet.
-- **Sign-in says the domain isn't authorized**: add your Vercel domain in Firebase → Authentication → Settings → Authorized domains.
+- **Sign-in says the domain isn't authorized**: add your `…workers.dev` domain in Firebase → Authentication → Settings → Authorized domains.
+- **Cloudflare build fails with a name mismatch**: the Worker's name in the dashboard must be `japan-trip`, or change `name` in `wrangler.jsonc` to match.
 - **A link has no title or picture**: some sites (Instagram especially) hide this from apps. Just type a title; the link still opens the post. In the idea's details, the ↻ button next to the link tries the preview again.

@@ -4,8 +4,8 @@ import type { FirebaseOptions } from "firebase/app";
  * Firebase settings that turn on syncing between your phones and computers.
  *
  * Paste the `firebaseConfig` object from the Firebase console here
- * (README → "Turn on syncing"), or set a VITE_FIREBASE_CONFIG environment
- * variable on Vercel containing the same thing. Leave as null to keep
+ * (README → "Turn on syncing"), or set a VITE_FIREBASE_CONFIG build
+ * variable on Cloudflare containing the same thing. Leave as null to keep
  * everything on this device only.
  *
  * These values are not secret: access is controlled by the Firestore rules.

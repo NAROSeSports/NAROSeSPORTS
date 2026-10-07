@@ -1,12 +1,10 @@
-// Link previews for the trip planner, deployed as a Vercel Function.
+// Link previews for the trip planner. Runs in the Cloudflare Worker (worker/index.ts)
+// and in `npm run dev` (vite.config.ts).
 //
 //   GET /api/preview?url=<link>   -> JSON { url, title, author, image, siteName, place, lat, lng }
 //   GET /api/preview?img=<image>  -> the image bytes (so the app can shrink and keep a thumbnail)
 //
 // Browsers can't read TikTok/YouTube/Maps pages directly (CORS), so this does it server-side.
-
-import { lookup } from "node:dns/promises";
-import { isIP } from "node:net";
 
 export interface Preview {
   url: string;
@@ -25,7 +23,7 @@ const BROWSER_UA =
 const MAX_HTML = 1_500_000;
 const MAX_IMAGE = 6_000_000;
 
-export async function GET(request: Request): Promise<Response> {
+export async function handlePreview(request: Request): Promise<Response> {
   const params = new URL(request.url).searchParams;
   try {
     const img = params.get("img");
@@ -33,7 +31,7 @@ export async function GET(request: Request): Promise<Response> {
     const url = params.get("url");
     if (!url) return json({ error: "Missing ?url=" }, 400);
     const preview = await getPreview(url);
-    return json(preview, 200, "public, max-age=3600, s-maxage=86400");
+    return json(preview, 200, "public, max-age=3600");
   } catch (err) {
     return json({ error: err instanceof Error ? err.message : "Preview failed" }, 502);
   }
@@ -48,9 +46,16 @@ function json(body: unknown, status = 200, cache = "no-store"): Response {
 
 // ---------------------------------------------------------------------------
 // Safe fetching: only public http(s) hosts, redirects checked hop by hop.
+// (The Worker runs on Cloudflare's network, not yours, so it can't reach your home
+// network anyway; this also stops anyone using it to poke at local addresses.)
+
+function ipVersion(host: string): 0 | 4 | 6 {
+  if (/^\d{1,3}(\.\d{1,3}){3}$/.test(host)) return 4;
+  return host.includes(":") ? 6 : 0;
+}
 
 function isPrivateIp(ip: string): boolean {
-  if (isIP(ip) === 4) {
+  if (ipVersion(ip) === 4) {
     const [a, b] = ip.split(".").map(Number);
     return (
       a === 0 || a === 10 || a === 127 || a >= 224 ||
@@ -65,23 +70,21 @@ function isPrivateIp(ip: string): boolean {
   return v6 === "::" || v6 === "::1" || v6.startsWith("fc") || v6.startsWith("fd") || v6.startsWith("fe80");
 }
 
-async function assertPublic(raw: string | URL): Promise<URL> {
+export function assertPublic(raw: string | URL): URL {
   const url = new URL(raw);
   if (url.protocol !== "https:" && url.protocol !== "http:") throw new Error("Only http(s) links are supported");
   if (url.username || url.password) throw new Error("Unsupported link");
   const host = url.hostname.replace(/^\[|\]$/g, "").toLowerCase();
-  if (isIP(host)) {
+  if (ipVersion(host)) {
     if (isPrivateIp(host)) throw new Error("Unsupported link");
     return url;
   }
-  if (!host.includes(".") || /\.(localhost|local|internal|lan|home)$/.test(host)) throw new Error("Unsupported link");
-  const addresses = await lookup(host, { all: true });
-  if (addresses.length === 0 || addresses.some((a) => isPrivateIp(a.address))) throw new Error("Unsupported link");
+  if (!host.includes(".") || /(^|\.)(localhost|local|internal|lan|home)$/.test(host)) throw new Error("Unsupported link");
   return url;
 }
 
 async function safeFetch(raw: string, accept: string): Promise<{ res: Response; url: URL }> {
-  let url = await assertPublic(raw);
+  let url = assertPublic(raw);
   for (let hop = 0; hop < 8; hop++) {
     const res = await fetch(url, {
       redirect: "manual",
@@ -91,7 +94,7 @@ async function safeFetch(raw: string, accept: string): Promise<{ res: Response; 
     const location = res.headers.get("location");
     if (res.status >= 300 && res.status < 400 && location) {
       await res.body?.cancel();
-      url = await assertPublic(new URL(location, url));
+      url = assertPublic(new URL(location, url));
       continue;
     }
     return { res, url };
@@ -323,6 +326,6 @@ async function proxyImage(raw: string): Promise<Response> {
   }
   const bytes = await readLimited(res, MAX_IMAGE);
   return new Response(bytes, {
-    headers: { "content-type": type, "cache-control": "public, max-age=86400, s-maxage=604800" },
+    headers: { "content-type": type, "cache-control": "public, max-age=86400" },
   });
 }

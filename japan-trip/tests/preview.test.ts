@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { decodeEntities, parseMapsUrl, parseMeta } from "../api/preview";
+import { assertPublic, decodeEntities, parseMapsUrl, parseMeta } from "../worker/preview";
 
 describe("parseMeta", () => {
   it("reads Open Graph tags in any attribute order", () => {
@@ -33,4 +33,14 @@ describe("parseMapsUrl", () => {
   it("ignores bare coordinates as a name", () => {
     expect(parseMapsUrl("https://www.google.com/maps/search/35.1,135.2").place).toBeUndefined();
   });
+});
+
+describe("assertPublic", () => {
+  it("allows normal sites", () => {
+    expect(assertPublic("https://vm.tiktok.com/abc").hostname).toBe("vm.tiktok.com");
+  });
+  it.each(["http://localhost:8080/", "http://127.0.0.1/", "http://192.168.1.1/", "http://[::1]/", "http://10.0.0.5/", "http://printer.local/", "file:///etc/passwd", "http://user:pw@example.com/"])(
+    "blocks %s",
+    (url) => expect(() => assertPublic(url)).toThrow(),
+  );
 });

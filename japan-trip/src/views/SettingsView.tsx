@@ -95,7 +95,7 @@ function PeopleSettings() {
           <ol className="list-decimal space-y-1 pl-5 text-muted">
             <li>Create a Firebase project and a Web app.</li>
             <li>Turn on Google sign-in and Firestore, and paste in the rules from <code>firestore.rules</code>.</li>
-            <li>Put the config in <code>src/config.ts</code> (or the <code>VITE_FIREBASE_CONFIG</code> setting on Vercel) and redeploy.</li>
+            <li>Put the config in <code>src/config.ts</code> (or a <code>VITE_FIREBASE_CONFIG</code> build variable on Cloudflare) and redeploy.</li>
           </ol>
           <p className="mt-2 text-muted">
             Full step-by-step guide: <code>japan-trip/README.md</code>. Anything you've already saved here can be moved into the shared trip when you

@@ -14,5 +14,5 @@
     "noUnusedParameters": true,
     "allowImportingTsExtensions": true
   },
-  "include": ["vite.config.ts", "api"]
+  "include": ["vite.config.ts", "worker"]
 }

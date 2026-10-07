@@ -2,18 +2,17 @@ import { defineConfig, type Plugin, type ViteDevServer } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
-// In production the files in /api run as Vercel Functions. This plugin runs the
-// same handlers under `vite dev` so link previews work locally too.
+// In production /api/preview runs in the Cloudflare Worker (worker/index.ts).
+// This plugin runs the same handler under `vite dev` so link previews work locally too.
 function localApi(): Plugin {
   return {
     name: "local-api",
     configureServer(server: ViteDevServer) {
       server.middlewares.use(async (req, res, next) => {
-        const match = req.url?.match(/^\/api\/([a-z-]+)(?:\?|$)/);
-        if (!match) return next();
+        if (!req.url?.startsWith("/api/preview")) return next();
         try {
-          const mod = await server.ssrLoadModule(`/api/${match[1]}.ts`);
-          const response: Response = await mod.GET(new Request(`http://localhost${req.url}`));
+          const { handlePreview } = await server.ssrLoadModule("/worker/preview.ts");
+          const response: Response = await handlePreview(new Request(`http://localhost${req.url}`));
           res.statusCode = response.status;
           response.headers.forEach((value, key) => res.setHeader(key, value));
           res.end(Buffer.from(await response.arrayBuffer()));
